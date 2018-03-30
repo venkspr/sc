@@ -2,6 +2,7 @@ import React from 'react';
 
 import CategoryList from './CategoryList';
 import ProductList from './ProductList';
+import Cart from './Cart';
 
 import apiClient from '../store/actions/api-client';
 
@@ -9,6 +10,7 @@ class App extends React.PureComponent {
   state = {
     categories: [],
     products: [],
+    cart: [],
     showCart: false,
     activeCategoryId: undefined,
   };
@@ -16,9 +18,12 @@ class App extends React.PureComponent {
     const categories = await apiClient.getCategories();
     this.setState({ categories });
   }
-  addToCart = () => {
-    this.setState({ showCart: true });
-  }
+  addToCart = (product) => {
+    this.setState((prevState) => ({
+      cart: [...prevState.cart, product],
+      showCart: true
+    }));
+  };
   showProductsForCategory = async (categoryId) => {
     const products = await apiClient.getProducts(categoryId);
     this.setState({ products, activeCategoryId: categoryId });
@@ -42,7 +47,9 @@ class App extends React.PureComponent {
             flex: 2,
             display: this.state.showCart ? 'inline-block' : 'none',
           }}>
-          The Cart......
+          The Cart
+          <button onClick={() => this.setState({ showCart: false })}>=&gt;</button>
+          <Cart products={this.state.cart} />
         </div>
       </div>
     );
