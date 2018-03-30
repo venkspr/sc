@@ -11,6 +11,7 @@ class CategoryList extends React.PureComponent {
             <CategoryItem
               key={category.id}
               category={category}
+              isActive={category.id === this.props.activeCategoryId}
               onClick={this.props.onCategoryClick}
             />
           );

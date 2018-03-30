@@ -1,5 +1,5 @@
 import express from 'express';
-import config from 'server/config';
+import config from './config';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 

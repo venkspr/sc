@@ -10,6 +10,7 @@ class App extends React.PureComponent {
     categories: [],
     products: [],
     showCart: false,
+    activeCategoryId: '5abbdfde3c43e500a9a3308d',
   };
   async componentDidMount() {
     const categories = await apiClient.getCategories();
@@ -17,17 +18,15 @@ class App extends React.PureComponent {
   }
   showProductsForCategory = async (categoryId) => {
     const products = await apiClient.getProducts(categoryId);
-    this.setState({ products });
+    this.setState({ products, activeCategoryId: categoryId });
   };
   render() {
     return (
       <div id="container" style={{ display: 'flex' }}>
-        <div
-          id="leftSidebar"
-          style={{ flex: 3, borderRight: 'thin solid #aaa', paddingRight: 10 }}
-        >
+        <div id="leftSidebar" style={{ flex: 3, borderRight: 'thin solid #aaa', paddingRight: 10 }}>
           <CategoryList
             categories={this.state.categories}
+            activeCategoryId={this.state.activeCategoryId}
             onCategoryClick={this.showProductsForCategory}
           />
         </div>
@@ -39,8 +38,7 @@ class App extends React.PureComponent {
           style={{
             flex: 2,
             display: this.state.showCart ? 'inline-block' : 'none',
-          }}
-        >
+          }}>
           The Cart......
         </div>
       </div>
