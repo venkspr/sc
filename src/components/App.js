@@ -18,11 +18,19 @@ class App extends React.PureComponent {
     const categories = await apiClient.getCategories();
     this.setState({ categories });
   }
+
+  productAlreadyInCart = (prevState, product) => prevState.cart.find((cp) => cp.id === product.id);
+
   addToCart = (product) => {
-    this.setState((prevState) => ({
-      cart: [...prevState.cart, product],
-      showCart: true
-    }));
+    this.setState((prevState) => {
+      if (this.productAlreadyInCart(prevState, product)) {
+        return;
+      }
+      return {
+        cart: [...prevState.cart, product],
+        showCart: true,
+      };
+    });
   };
   showProductsForCategory = async (categoryId) => {
     const products = await apiClient.getProducts(categoryId);
