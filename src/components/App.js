@@ -10,11 +10,14 @@ class App extends React.PureComponent {
     categories: [],
     products: [],
     showCart: false,
-    activeCategoryId: '5abbdfde3c43e500a9a3308d',
+    activeCategoryId: undefined,
   };
   async componentDidMount() {
     const categories = await apiClient.getCategories();
     this.setState({ categories });
+  }
+  addToCart = () => {
+    this.setState({ showCart: true });
   }
   showProductsForCategory = async (categoryId) => {
     const products = await apiClient.getProducts(categoryId);
@@ -31,7 +34,7 @@ class App extends React.PureComponent {
           />
         </div>
         <div id="main" style={{ flex: 5 }}>
-          <ProductList products={this.state.products} />
+          <ProductList products={this.state.products} addToCart={this.addToCart} />
         </div>
         <div
           id="rightSidebar"

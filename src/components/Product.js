@@ -8,6 +8,7 @@ class Product extends React.Component {
         <div style={{ fontWeight: 'bold' }}>
           ${this.props.product.Price / 100}
         </div>
+        <button onClick={this.props.addToCart}>Add To Cart</button>
       </div>
     );
   }
