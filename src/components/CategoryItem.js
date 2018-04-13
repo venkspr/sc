@@ -12,9 +12,10 @@ class CategoryItem extends React.PureComponent {
         style={{
           cursor: 'pointer',
           marginTop: 5,
-          fontWeight: isActive ? 'bold' : 'normal',
+          fontWeight: isActive ? 'bold' : 'normal'
         }}
-        onClick={this.handleClick}>
+        onClick={this.handleClick}
+      >
         {category.ProductLine} {category.ProductSeries}
       </div>
     );

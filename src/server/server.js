@@ -2,7 +2,7 @@ import express from 'express';
 import config from './config';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
-
+require('babel-register');
 const app = express();
 app.use(morgan('common'));
 

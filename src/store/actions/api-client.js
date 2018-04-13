@@ -11,6 +11,9 @@ export default {
           id: _id
           ProductLine
           ProductSeries
+          products{
+     CrossReference
+   }
         }
       }
     `
@@ -39,4 +42,41 @@ export default {
       )
       .then((resp) => resp.data.data.category.products);
   },
+
+  searchProductsCategories() {
+    return axios
+      .post(
+        `${config.apiHost}?query=
+        {
+          products {
+            _id
+            ItemDescription
+            CrossReference
+            Price
+            category {
+              ProductLine
+              ProductSeries
+            }
+          }
+        }
+ `
+      )
+      .then((resp) => resp.data.data);
+  },
+
+  searchProducts(text) {
+    return axios
+      .post(
+        `${config.apiHost}?query=
+        {
+    searchProducts(text:"${text}"){
+      CrossReference
+      ItemDescription
+      Price
+      id:_id
+    }
+  } `
+      )
+      .then((resp) => resp.data.data);
+  }
 };

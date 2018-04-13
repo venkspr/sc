@@ -5,25 +5,22 @@ module.exports = {
     commonjs: true,
     es6: true,
     node: true,
-    jest: true,
+    jest: true
   },
   extends: ['eslint:recommended', 'plugin:react/recommended'],
   parserOptions: {
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
-      jsx: true,
+      jsx: true
     },
-    sourceType: 'module',
+    sourceType: 'module'
   },
   plugins: ['react'],
   rules: {
     'react/prop-types': ['off'],
     indent: ['error', 2, { SwitchCase: 1 }],
-    'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
-    'no-console': ['warn', { allow: ['info', 'error', 'dir'] }],
-    'arrow-parens': ['error', 'always'],
     curly: 'error',
     'no-else-return': 'error',
     'no-unneeded-ternary': 'error',
@@ -35,5 +32,5 @@ module.exports = {
     strict: 'error',
     'symbol-description': 'error',
     yoda: ['error', 'never', { exceptRange: true }]
-  },
+  }
 };
