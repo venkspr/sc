@@ -23,7 +23,6 @@ class Orders extends React.PureComponent {
         this.setState({ data: [...response.data.items] });
       });
   }
-
   handlePageChange = async (e) => {
     await this.setState({ page: e.target.value });
     await this.props.setPage(this.state.page);
