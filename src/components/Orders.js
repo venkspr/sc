@@ -4,10 +4,18 @@ import axios from 'axios';
 class Orders extends React.PureComponent {
   state = {
     data: [],
-    page: this.props.page
+    page: this.props.page,
+    options: [...Array(100).keys()]
   };
 
-  componentDidMount() {
+  delay = (ms) => {
+    return new Promise((resolve) => {
+      return setTimeout(resolve, ms);
+    });
+  };
+
+  async componentDidMount() {
+    await this.delay(2000);
     axios
       .get('http://vrangara2:8080/angular/qualcomm/om/orders?page=0')
       .then((response) => {
@@ -15,6 +23,20 @@ class Orders extends React.PureComponent {
         this.setState({ data: [...response.data.items] });
       });
   }
+
+  handlePageChange = async (e) => {
+    await this.setState({ page: e.target.value });
+    await this.props.setPage(this.state.page);
+    axios
+      .get(
+        'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
+          this.state.page
+      )
+      .then((response) => {
+        // console.log(response);
+        this.setState({ data: [...response.data.items] });
+      });
+  };
 
   firstPage = async () => {
     await this.setState({ page: 0 });
@@ -51,8 +73,10 @@ class Orders extends React.PureComponent {
   };
 
   nextPage = async () => {
+    await this.delay(2000);
+
     await this.setState((prevState) => {
-      return { page: prevState.page + 1 };
+      return { page: parseInt(prevState.page) + 1 };
     });
 
     await this.props.setPage(this.state.page);
@@ -91,7 +115,16 @@ class Orders extends React.PureComponent {
                 </button>
               </td>
               <td colSpan="1" className="text-right">
-                {this.state.page}{' '}
+                <select
+                  value={this.state.page}
+                  onChange={this.handlePageChange}
+                >
+                  {this.state.options.map((item) => (
+                    <option value={item} key={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
               </td>
               <td className="text-right">
                 <button
