@@ -4,7 +4,8 @@ import Loader from 'react-loader-advanced';
 //import Spinner from 'react-spinkit';
 const spinner = (
   <span>
-    <i className="fa fa-5x fa-spinner " />
+    {/* <i className="fa fa-5x fa-spinner " /> */}
+    <img src="loading.gif" style={{ height: '200px', width: '200px' }} />
   </span>
 );
 
@@ -22,7 +23,7 @@ class Orders extends React.PureComponent {
   };
 
   async componentDidMount() {
-    //await this.delay(2000);
+    await this.delay(2000);
     axios
       .get('http://vrangara2:8080/angular/qualcomm/om/orders?page=0')
       .then((response) => {
@@ -64,6 +65,7 @@ class Orders extends React.PureComponent {
   prevPage = async () => {
     if (this.state.page > 0) {
       await this.setState({ loading: true });
+      await this.delay(2000);
 
       await this.setState((prevState) => {
         return { page: prevState.page - 1 };
@@ -85,6 +87,7 @@ class Orders extends React.PureComponent {
 
   nextPage = async () => {
     await this.setState({ loading: true });
+    await this.delay(2000);
 
     //await this.delay(100);
 
@@ -108,7 +111,11 @@ class Orders extends React.PureComponent {
   render() {
     return (
       <div className="col-lg-6">
-        <Loader show={this.state.loading} message={spinner}>
+        <Loader
+          show={this.state.loading}
+          message={spinner}
+          backgroundStyle={{ backgroundColor: 'white' }}
+        >
           <table className="table table-hover table-sm">
             <tbody>
               <tr>
@@ -121,7 +128,7 @@ class Orders extends React.PureComponent {
                     Prev
                   </button>
                   <button
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: 'pointer', marginLeft: '10px' }}
                     className="btn btn-primary"
                     onClick={this.firstPage}
                   >
