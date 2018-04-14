@@ -1,6 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import Loader from 'react-loader-advanced';
+//import Spinner from 'react-spinkit';
+const spinner = (
+  <span>
+    <i className="fa fa-5x fa-spinner " />
+  </span>
+);
 
 class Orders extends React.PureComponent {
   state = {
@@ -9,7 +15,6 @@ class Orders extends React.PureComponent {
     loading: true,
     options: [...Array(100).keys()]
   };
-
   delay = (ms) => {
     return new Promise((resolve) => {
       return setTimeout(resolve, ms);
@@ -27,16 +32,18 @@ class Orders extends React.PureComponent {
       });
   }
   handlePageChange = async (e) => {
-    await this.setState({ page: e.target.value });
+    await this.setState({ loading: true, page: e.target.value });
+    //this.props.setPage(e.target.value);
     await this.props.setPage(this.state.page);
+
     axios
       .get(
         'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
-          this.state.page
+          this.props.page
       )
       .then((response) => {
-        // console.log(response);
-        this.setState({ data: [...response.data.items] });
+        //console.log(response);
+        this.setState({ data: [...response.data.items], loading: false });
       });
   };
 
@@ -55,9 +62,9 @@ class Orders extends React.PureComponent {
   };
 
   prevPage = async () => {
-    await this.setState({ loading: true });
-
     if (this.state.page > 0) {
+      await this.setState({ loading: true });
+
       await this.setState((prevState) => {
         return { page: prevState.page - 1 };
       });
@@ -101,7 +108,7 @@ class Orders extends React.PureComponent {
   render() {
     return (
       <div className="col-lg-6">
-        <Loader show={this.state.loading} message={'Loading....'}>
+        <Loader show={this.state.loading} message={spinner}>
           <table className="table table-hover table-sm">
             <tbody>
               <tr>

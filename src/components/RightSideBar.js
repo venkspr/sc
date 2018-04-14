@@ -18,7 +18,7 @@ class RightSideBar extends React.PureComponent {
               emptyCart={this.props.emptyCart}
             />
           ) : (
-            <div> &nbadsfadsfsp; </div>
+            <div> &nbsp; </div>
           )}
         </div>
       </React.Fragment>
