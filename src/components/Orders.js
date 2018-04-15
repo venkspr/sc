@@ -2,19 +2,28 @@ import React from 'react';
 import axios from 'axios';
 import Loader from 'react-loader-advanced';
 //import Spinner from 'react-spinkit';
-const spinner = (
-  <span>
-    {/* <i className="fa fa-5x fa-spinner " /> */}
-    <img src="loading.gif" style={{ height: '200px', width: '200px' }} />
-  </span>
-);
 
 class Orders extends React.PureComponent {
   state = {
     data: [],
     page: this.props.page,
     loading: true,
+    spinnerId: 1,
     options: [...Array(100).keys()]
+  };
+  getSpinner = () => {
+    const sp = (
+      <span>
+        {/* <i className="fa fa-5x fa-spinner " /> */}
+        <img
+          src={'loading' + (Math.floor(Math.random() * 7) + 1) + '.gif'}
+          style={{ height: '200px', width: '200px' }}
+        />
+      </span>
+    );
+    console.log('inside spinner');
+
+    return sp;
   };
   delay = (ms) => {
     return new Promise((resolve) => {
@@ -23,6 +32,7 @@ class Orders extends React.PureComponent {
   };
 
   async componentDidMount() {
+    console.log('inside mount');
     await this.delay(2000);
     axios
       .get('http://vrangara2:8080/angular/qualcomm/om/orders?page=0')
@@ -31,6 +41,12 @@ class Orders extends React.PureComponent {
         this.setState({ data: [...response.data.items] });
         this.setState({ loading: false });
       });
+  }
+
+  setStateAsync(state) {
+    return new Promise((resolve) => {
+      this.setState(state, resolve);
+    });
   }
   handlePageChange = async (e) => {
     await this.setState({ loading: true, page: e.target.value });
@@ -68,21 +84,28 @@ class Orders extends React.PureComponent {
       await this.delay(2000);
 
       await this.setState((prevState) => {
-        return { page: prevState.page - 1 };
+        return { page: prevState.page - 1, loading: false };
       });
 
       this.props.setPage(this.state.page);
     }
 
-    axios
-      .get(
-        'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
-          this.state.page
-      )
-      .then((response) => {
-        // console.log(response);
-        this.setState({ data: [...response.data.items], loading: false });
-      });
+    const res = await axios.get(
+      'http://vrangara2:8080/angular/qualcomm/om/orders?page=' + this.state.page
+    );
+    await this.setStateAsync({ loading: false });
+    await this.setState({ data: [...res.data.items] });
+
+    // await this.setState({ data: [...response.data.items], loading: false });
+    // axios
+    //   .get(
+    //     'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
+    //       this.state.page
+    //   )
+    //   .then((response) => {
+    //     // console.log(response);
+    //     this.setState({ data: [...response.data.items], loading: false });
+    //   });
   };
 
   nextPage = async () => {
@@ -92,7 +115,7 @@ class Orders extends React.PureComponent {
     //await this.delay(100);
 
     await this.setState((prevState) => {
-      return { page: parseInt(prevState.page) + 1 };
+      return { page: parseInt(prevState.page) + 1, loading: false };
     });
 
     await this.props.setPage(this.state.page);
@@ -113,7 +136,9 @@ class Orders extends React.PureComponent {
       <div className="col-lg-6">
         <Loader
           show={this.state.loading}
-          message={spinner}
+          message={this.getSpinner()}
+          hideContentOnLoad={false}
+          contentBlur={150}
           backgroundStyle={{ backgroundColor: 'white' }}
         >
           <table className="table table-hover table-sm">
