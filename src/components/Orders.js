@@ -21,7 +21,7 @@ class Orders extends React.PureComponent {
         />
       </span>
     );
-    console.log('inside spinner');
+    //console.log('inside spinner');
 
     return sp;
   };
@@ -32,8 +32,7 @@ class Orders extends React.PureComponent {
   };
 
   async componentDidMount() {
-    console.log('inside mount');
-    await this.delay(2000);
+    await this.delay(1000);
     axios
       .get('http://vrangara2:8080/angular/qualcomm/om/orders?page=0')
       .then((response) => {
@@ -81,7 +80,7 @@ class Orders extends React.PureComponent {
   prevPage = async () => {
     if (this.state.page > 0) {
       await this.setState({ loading: true });
-      await this.delay(2000);
+      await this.delay(1000);
 
       await this.setState((prevState) => {
         return { page: prevState.page - 1, loading: false };
@@ -110,7 +109,7 @@ class Orders extends React.PureComponent {
 
   nextPage = async () => {
     await this.setState({ loading: true });
-    await this.delay(2000);
+    await this.delay(1000);
 
     //await this.delay(100);
 
