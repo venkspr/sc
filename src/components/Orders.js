@@ -2,6 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import Loader from 'react-loader-advanced';
 //import Spinner from 'react-spinkit';
+const RIGHT_ARROW = 39;
+const LEFT_ARROW = 37;
+const UP_ARROW = 38;
 
 class Orders extends React.PureComponent {
   state = {
@@ -11,12 +14,33 @@ class Orders extends React.PureComponent {
     spinnerId: 1,
     options: [...Array(100).keys()]
   };
+
+  // for other devs who might not know keyCodes
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this._handleKeyDown);
+  }
+
+  _handleKeyDown = (event) => {
+    switch (event.keyCode) {
+      case RIGHT_ARROW:
+        this.nextPage();
+        break;
+      case LEFT_ARROW:
+        this.prevPage();
+        break;
+      // case UP_ARROW:
+      //   this.firstPage();
+      //   break;
+      default:
+        break;
+    }
+  };
   getSpinner = () => {
     const sp = (
       <span>
         {/* <i className="fa fa-5x fa-spinner " /> */}
         <img
-          src={'loading' + (Math.floor(Math.random() * 7) + 1) + '.gif'}
+          src={'loading' + (Math.floor(Math.random() * 12) + 1) + '.gif'}
           style={{ height: '200px', width: '200px' }}
         />
       </span>
@@ -32,6 +56,8 @@ class Orders extends React.PureComponent {
   };
 
   async componentDidMount() {
+    document.addEventListener('keydown', this._handleKeyDown);
+
     await this.delay(1000);
     axios
       .get('http://vrangara2:8080/angular/qualcomm/om/orders?page=0')
