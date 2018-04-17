@@ -81,9 +81,9 @@ class Cart extends React.Component {
                       {roundTo(product.Price / 100 * product.quantity, 3)}
                     </td>
                     <td className="actions" data-th="">
-                      <button className="btn btn-info btn-sm">
+                      {/* <button className="btn btn-info btn-sm">
                         <i className="fa fa-refresh" />
-                      </button>
+                      </button> */}
                       <button
                         className="btn btn-danger btn-sm"
                         onClick={() =>
@@ -136,15 +136,19 @@ class Cart extends React.Component {
                     <i className="fa fa-trash-o" /> Empty Cart
                   </a>
                 </td>
-                <td colSpan="2" className="hidden-xs" />
-                <td className="hidden-xs text-center">
+                <td colSpan="1" className="hidden-xs" />
+                <td
+                  colSpan="1"
+                  className="hidden-xs text-center"
+                  style={{ align: 'right' }}
+                >
                   <strong>Total </strong>
                   <div style={{ color: '#B12704', fontWeight: 'bold' }}>
                     ${this.cartTotal().toLocaleString()}
                   </div>
                 </td>
-                <td>
-                  <a href="#" className="btn btn-success btn-block">
+                <td colSpan="2" className="text-right">
+                  <a href="#" className="btn btn-success text-right">
                     Checkout <i className="fa fa-angle-right" />
                   </a>
                 </td>

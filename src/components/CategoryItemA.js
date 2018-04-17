@@ -25,7 +25,7 @@ class CategoryItemA extends React.PureComponent {
         >
           {' '}
           {category.ProductLine} {category.ProductSeries}{' '}
-          <span className="badge badge-pill badge-secondary badge-right">
+          <span className="badge badge-pill blue badge-primary badge-right">
             {category.products.length}
           </span>
         </Link>

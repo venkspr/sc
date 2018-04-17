@@ -207,11 +207,17 @@ class Orders extends React.PureComponent {
                   </button>
                 </td>
               </tr>
+            </tbody>
+          </table>
+          <table className="table">
+            <thead className="blue-grey lighten-4">
               <tr>
-                <th>Order Number</th>
-                <th>Party Name</th>
+                <th style={{ width: '10%' }}>Order Number</th>
+                <th style={{ width: '20%' }}>Party Name</th>
                 <th>Description</th>
               </tr>
+            </thead>
+            <tbody>
               {this.state.data.map((item, i) => (
                 <tr key={i}>
                   <td style={{ width: '10%' }}>
@@ -219,10 +225,10 @@ class Orders extends React.PureComponent {
                       {this.state.data[i].order_number}
                     </a>
                   </td>
-                  <td className="col-md-2" style={{ width: '20%' }}>
+                  <td style={{ width: '20%' }}>
                     {this.state.data[i].party_name}
                   </td>
-                  <td className="col-md-4" style={{ width: '70%' }}>
+                  <td style={{ width: '70%' }}>
                     {this.state.data[i].description}
                   </td>
                 </tr>

@@ -1,18 +1,19 @@
 import React from 'react';
 import NotificationCart from './NotificationCart';
+import { Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
   render() {
     return (
       <React.Fragment>
         <nav
-          className="navbar  navbar-light bg-teal"
+          className="navbar navbar-expand-lg navbar-dark primary-color"
           style={{ backgroundColor: '#FFFFFF' }}
         >
           <a className="navbar-brand" href="/">
-            <img src="logo.png" alt="" style={{ paddingBottom: '10px' }} />
+            <img src="logo.png" alt="" />
             &nbsp;&nbsp;&nbsp;
-            <h3
+            {/* <h3
               className="navbar-brand"
               style={{
                 color: 'white',
@@ -21,14 +22,69 @@ class NavBar extends React.Component {
               }}
             >
               Sales Center
-            </h3>
+            </h3> */}
           </a>
-          <ul className="nav navbar-right">
-            <li>
-              <i
-                className="icon dripicons-home"
-                style={{ fontSize: '30px', color: '#3253DC' }}
-              />
+          <ul className="navbar-nav navbar-center">
+            <li className="nav-item">
+              <Link
+                className="nav-link qcom waves-effect waves-light"
+                to="/"
+                onClick={this.props.resetShowFeatured}
+              >
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link qcom waves-effect waves-light"
+                to="orders"
+              >
+                Orders
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link qcom waves-effect waves-light"
+                to="pricing"
+              >
+                Pricing
+              </Link>
+            </li>
+            <li className="nav-item dropdown ">
+              <a
+                className="nav-link dropdown-toggle qcom"
+                href="#"
+                id="navbarDropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Documents
+              </a>
+              <div
+                className="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <a className="dropdown-item" href="#">
+                  Action
+                </a>
+                <a className="dropdown-item" href="#">
+                  Another action
+                </a>
+                <a className="dropdown-item" href="#">
+                  Something else here
+                </a>
+              </div>
+            </li>
+          </ul>
+          <ul className="nav ml-auto">
+            <li className="nav-item">
+              <a className="nav-link waves-effect waves-light" href="#">
+                <i
+                  className="icon dripicons-home"
+                  style={{ fontSize: '30px', color: '#FFFFFF' }}
+                />
+              </a>
             </li>
             <li
               data-tip
@@ -44,8 +100,8 @@ class NavBar extends React.Component {
                 className="icon dripicons-cart"
                 style={{
                   fontSize: '30px',
-                  color: '#3253DC',
-                  marginLeft: '20px'
+                  color: '#FFFFFF',
+                  marginLeft: '10px'
                 }}
               />
 
@@ -80,7 +136,7 @@ class NavBar extends React.Component {
                 className="icon dripicons-bell"
                 title="Tool tip here"
                 style={{
-                  color: '#3253DC',
+                  color: '#FFFFFF',
                   fontSize: '30px',
                   marginLeft: '20px'
                 }}
