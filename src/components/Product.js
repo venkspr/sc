@@ -90,7 +90,10 @@ class Product extends React.Component {
               {(this.props.product.Price / 100).toLocaleString()}
             </p>
           </div>
-          <button onClick={this.handleAddToCart} className="btn btn-info">
+          <button
+            onClick={this.handleAddToCart}
+            className="btn btn-info waves-effect waves-light"
+          >
             Add To Cart
           </button>
         </div>

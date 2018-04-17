@@ -7,7 +7,7 @@ class NavBar extends React.Component {
     return (
       <React.Fragment>
         <nav
-          className="navbar navbar-expand-lg navbar-dark primary-color"
+          className="navbar navbar-expand-lg light-blue darken-4"
           style={{ backgroundColor: '#FFFFFF' }}
         >
           <a className="navbar-brand" href="/">

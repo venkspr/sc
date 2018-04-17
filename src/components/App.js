@@ -9,6 +9,7 @@ import NavBar from './NavBar';
 import NavBarSecond from './NavBarSecond';
 import Middle from './Middle';
 import RightSideBar from './RightSideBar';
+import Footer from './Footer';
 // import ProductFragment from './ProductFragment';
 
 import apiClient from '../store/actions/api-client';
@@ -179,6 +180,7 @@ class App extends React.PureComponent {
             </div>
           </div>
           {/* <ProductFragment {...this} product={this.state.productCards} /> */}
+          <Footer />
         </React.Fragment>
       </Router>
     );
