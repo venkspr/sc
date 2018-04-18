@@ -1,5 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
+new webpack.DefinePlugin({
+  'process.env': {
+    NODE_ENV: JSON.stringify('production')
+  }
+});
 const isDev = process.env.NODE_ENV !== 'production';
 const config = {
   devtool: isDev ? 'source-map' : false,

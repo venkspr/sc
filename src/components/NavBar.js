@@ -37,7 +37,7 @@ class NavBar extends React.Component {
             <li className="nav-item">
               <Link
                 className="nav-link qcom waves-effect waves-light"
-                to="orders"
+                to="/orders"
               >
                 Orders
               </Link>

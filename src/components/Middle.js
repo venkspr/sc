@@ -1,6 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import _ from 'lodash';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './style.css';
 import ProductList from './ProductList';
 // import ProductFragment from './ProductFragment';

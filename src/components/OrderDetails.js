@@ -1,13 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import Loader from 'react-loader-advanced';
-import { Link } from 'react-router-dom';
-
+import moment from 'moment';
 //import Spinner from 'react-spinkit';
 const RIGHT_ARROW = 39;
 const LEFT_ARROW = 37;
 
-class Orders extends React.PureComponent {
+class OrderDetails extends React.PureComponent {
   state = {
     data: [],
     page: this.props.page,
@@ -41,7 +40,7 @@ class Orders extends React.PureComponent {
       <span>
         {/* <i className="fa fa-5x fa-spinner " /> */}
         <img
-          src={'loading' + (Math.floor(Math.random() * 12) + 1) + '.gif'}
+          src={'../loading' + (Math.floor(Math.random() * 12) + 1) + '.gif'}
           style={{ height: '200px', width: '200px' }}
         />
       </span>
@@ -57,13 +56,15 @@ class Orders extends React.PureComponent {
   };
 
   async componentDidMount() {
-    document.addEventListener('keydown', this._handleKeyDown);
-
+    console.log(this.props);
     await this.delay(1000);
     axios
-      .get('http://vrangara2:8080/angular/qualcomm/om/orders?page=0')
+      .get(
+        'http://vrangara2:8080/angular/qualcomm/om/order/' +
+          this.props.match.params.ordernumber
+      )
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         this.setState({ data: [...response.data.items] });
         this.setState({ loading: false });
       });
@@ -149,7 +150,7 @@ class Orders extends React.PureComponent {
     axios
       .get(
         'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
-          this.state.page
+          this.props.params.id
       )
       .then((response) => {
         // console.log(response);
@@ -170,42 +171,42 @@ class Orders extends React.PureComponent {
           <table className="table table-hover table-sm">
             <tbody>
               <tr>
-                <td style={{ width: '30%' }}>
-                  <button
-                    style={{ cursor: 'pointer' }}
-                    className="btn btn-primary"
-                    onClick={this.prevPage}
-                  >
-                    Prev
-                  </button>
-                  <button
-                    style={{ cursor: 'pointer', marginLeft: '10px' }}
-                    className="btn btn-primary"
-                    onClick={this.firstPage}
-                  >
-                    First
-                  </button>
+                <td>
+                  <h5>
+                    Party Name :{this.state.data.length > 0
+                      ? this.state.data[0].party_name
+                      : ''}
+                    {/* {this.state.data[0].order_number
+                    ? this.state.data[0].order_number
+                    : ' '} */}
+                  </h5>
                 </td>
-                <td colSpan="1" className="text-right">
-                  <select
-                    value={this.state.page}
-                    onChange={this.handlePageChange}
-                  >
-                    {this.state.options.map((item) => (
-                      <option value={item} key={item}>
-                        {item}
-                      </option>
-                    ))}
-                  </select>
+                <td>
+                  <h5>
+                    Account Number :{this.state.data.length > 0
+                      ? this.state.data[0].account_number
+                      : ''}
+                  </h5>
                 </td>
-                <td className="text-right">
-                  <button
-                    style={{ cursor: 'pointer' }}
-                    className="btn btn-primary"
-                    onClick={this.nextPage}
-                  >
-                    Next
-                  </button>
+              </tr>
+              <tr>
+                <td>
+                  <h5>
+                    {' '}
+                    Order Number Name :{this.state.data.length > 0
+                      ? this.state.data[0].order_number
+                      : ''}
+                  </h5>
+                </td>
+                <td>
+                  <h5>
+                    Order date :{this.state.data.length > 0
+                      ? moment(
+                        this.state.data[0].creation_date,
+                        'YYYY MM DD'
+                      ).format('MM-DD-YYYY')
+                      : ''}
+                  </h5>
                 </td>
               </tr>
             </tbody>
@@ -213,51 +214,32 @@ class Orders extends React.PureComponent {
           <table className="table">
             <thead className="blue-grey lighten-4">
               <tr>
-                <th style={{ width: '10%' }}>Order Number</th>
-                <th style={{ width: '20%' }}>Party Name</th>
+                <th>Line Number</th>
+                <th>Ordered Item</th>
+                <th>Ship From</th>
+                <th>Quantity</th>
+                <th>Price</th>
                 <th>Description</th>
+                <th>Part Number</th>
               </tr>
             </thead>
             <tbody>
               {this.state.data.map((item, i) => (
                 <tr key={i}>
-                  <td style={{ width: '10%' }}>
-                    <Link to={'/order/' + this.state.data[i].order_number}>
-                      {this.state.data[i].order_number}
-                    </Link>
+                  <td>
+                    <a href={'/Employee/' + item._id}>
+                      {this.state.data[i].line_number}
+                    </a>
                   </td>
-                  <td style={{ width: '20%' }}>
-                    {this.state.data[i].party_name}
-                  </td>
-                  <td style={{ width: '70%' }}>
-                    {this.state.data[i].description}
-                  </td>
+                  <td>{this.state.data[i].ordered_item}</td>
+                  <td>{this.state.data[i].ship_from_org_id}</td>
+                  <td>{this.state.data[i].ordered_quantity}</td>
+                  <td>{this.state.data[i].unit_selling_price}</td>
+                  <td>{this.state.data[i].description}</td>
+                  <td>{this.state.data[i].segment1}</td>
                 </tr>
               ))}
             </tbody>
-            <tfoot>
-              <tr>
-                <td>
-                  <button
-                    style={{ cursor: 'pointer' }}
-                    className="btn btn-primary"
-                    onClick={this.prevPage}
-                  >
-                    Prev
-                  </button>
-                </td>
-                <td />
-                <td className="text-right">
-                  <button
-                    style={{ cursor: 'pointer' }}
-                    className="btn btn-primary"
-                    onClick={this.nextPage}
-                  >
-                    Next
-                  </button>
-                </td>
-              </tr>
-            </tfoot>
           </table>
         </Loader>
       </div>
@@ -265,4 +247,4 @@ class Orders extends React.PureComponent {
   }
 }
 
-export default Orders;
+export default OrderDetails;

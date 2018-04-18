@@ -3,6 +3,8 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import _ from 'lodash';
 import './style.css';
 import Orders from './Orders';
+import OrderDetails from './OrderDetails';
+
 import toastr from 'toastr';
 import CategoryList from './CategoryList';
 import NavBar from './NavBar';
@@ -165,6 +167,19 @@ class App extends React.PureComponent {
                 onCategoryClick={this.showProductsForCategory}
               />
               <Switch>
+                <Route
+                  exact
+                  path="/order/:ordernumber"
+                  render={(routeProps) => (
+                    <OrderDetails
+                      {...routeProps}
+                      {...this.state}
+                      {...this}
+                      id={routeProps.match.params.id}
+                    />
+                  )}
+                />
+
                 <Route
                   exact
                   path="/orders"
