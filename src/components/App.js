@@ -151,7 +151,10 @@ class App extends React.PureComponent {
     return (
       <Router>
         <React.Fragment>
-          <NavBar cart={this.state.cart} />
+          <NavBar
+            cart={this.state.cart}
+            resetShowFeatured={this.resetShowFeatured}
+          />
           <NavBarSecond resetShowFeatured={this.resetShowFeatured} />
           <div className="container-fluid">&nbsp;&nbsp;&nbsp;</div>
           <div className="container-fluid">
