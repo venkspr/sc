@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Loader from 'react-loader-advanced';
 import moment from 'moment';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 //import Spinner from 'react-spinkit';
 const RIGHT_ARROW = 39;
 const LEFT_ARROW = 37;
@@ -56,8 +58,9 @@ class OrderDetails extends React.PureComponent {
   };
 
   async componentDidMount() {
-    console.log(this.props);
-    await this.delay(1000);
+    document.addEventListener('keydown', this._handleKeyDown);
+    window.scrollTo(0, 0);
+
     axios
       .get(
         'http://vrangara2:8080/angular/qualcomm/om/order/' +
@@ -106,33 +109,7 @@ class OrderDetails extends React.PureComponent {
   };
 
   prevPage = async () => {
-    if (this.state.page > 0) {
-      await this.setState({ loading: true });
-      await this.delay(1000);
-
-      await this.setState((prevState) => {
-        return { page: prevState.page - 1, loading: false };
-      });
-
-      this.props.setPage(this.state.page);
-    }
-
-    const res = await axios.get(
-      'http://vrangara2:8080/angular/qualcomm/om/orders?page=' + this.state.page
-    );
-    await this.setStateAsync({ loading: false });
-    await this.setState({ data: [...res.data.items] });
-
-    // await this.setState({ data: [...response.data.items], loading: false });
-    // axios
-    //   .get(
-    //     'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
-    //       this.state.page
-    //   )
-    //   .then((response) => {
-    //     // console.log(response);
-    //     this.setState({ data: [...response.data.items], loading: false });
-    //   });
+    window.history.back();
   };
 
   nextPage = async () => {
@@ -171,7 +148,7 @@ class OrderDetails extends React.PureComponent {
           <table className="table table-hover table-sm">
             <tbody>
               <tr>
-                <td>
+                <td colSpan="2">
                   <h5>
                     Party Name :{this.state.data.length > 0
                       ? this.state.data[0].party_name
@@ -208,6 +185,13 @@ class OrderDetails extends React.PureComponent {
                       : ''}
                   </h5>
                 </td>
+                <td>
+                  <h5>
+                    Order Type :{this.state.data.length > 0
+                      ? this.state.data[0].order_type
+                      : ''}
+                  </h5>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -220,7 +204,7 @@ class OrderDetails extends React.PureComponent {
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Description</th>
-                <th>Part Number</th>
+                {/* <th>Part Number</th> */}
               </tr>
             </thead>
             <tbody>
@@ -236,7 +220,7 @@ class OrderDetails extends React.PureComponent {
                   <td>{this.state.data[i].ordered_quantity}</td>
                   <td>{this.state.data[i].unit_selling_price}</td>
                   <td>{this.state.data[i].description}</td>
-                  <td>{this.state.data[i].segment1}</td>
+                  {/* <td>{this.state.data[i].segment1}</td> */}
                 </tr>
               ))}
             </tbody>

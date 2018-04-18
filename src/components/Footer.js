@@ -79,7 +79,7 @@ class Footer extends React.Component {
               <div className="col-md-8 col-lg-8">
                 <p className="text-center text-md-left grey-text">
                   © 2018 Copyright:{' '}
-                  <a href="https://mdbootstrap.com/material-design-for-bootstrap/">
+                  <a href="https://qualcomm.com/">
                     <strong> qualcomm.com</strong>
                   </a>
                 </p>
