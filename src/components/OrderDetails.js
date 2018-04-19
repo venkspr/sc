@@ -150,46 +150,55 @@ class OrderDetails extends React.PureComponent {
               <tr>
                 <td colSpan="2">
                   <h5>
-                    Party Name :{this.state.data.length > 0
-                      ? this.state.data[0].party_name
-                      : ''}
-                    {/* {this.state.data[0].order_number
+                    <span className="badge cyan">
+                      Party Name :{this.state.data.length > 0
+                        ? this.state.data[0].party_name
+                        : ''}
+                      {/* {this.state.data[0].order_number
                     ? this.state.data[0].order_number
                     : ' '} */}
+                    </span>
                   </h5>
                 </td>
                 <td>
                   <h5>
-                    Account Number :{this.state.data.length > 0
-                      ? this.state.data[0].account_number
-                      : ''}
+                    <span className="badge cyan">
+                      Account Number :{this.state.data.length > 0
+                        ? this.state.data[0].account_number
+                        : ''}
+                    </span>
                   </h5>
                 </td>
               </tr>
               <tr>
                 <td>
                   <h5>
-                    {' '}
-                    Order Number Name :{this.state.data.length > 0
-                      ? this.state.data[0].order_number
-                      : ''}
+                    <span className="badge cyan">
+                      Order Number Name :{this.state.data.length > 0
+                        ? this.state.data[0].order_number
+                        : ''}
+                    </span>
                   </h5>
                 </td>
                 <td>
                   <h5>
-                    Order date :{this.state.data.length > 0
-                      ? moment(
-                        this.state.data[0].creation_date,
-                        'YYYY MM DD'
-                      ).format('MM-DD-YYYY')
-                      : ''}
+                    <span className="badge cyan">
+                      Order date :{this.state.data.length > 0
+                        ? moment(
+                          this.state.data[0].creation_date,
+                          'YYYY MM DD'
+                        ).format('MM-DD-YYYY')
+                        : ''}
+                    </span>
                   </h5>
                 </td>
                 <td>
                   <h5>
-                    Order Type :{this.state.data.length > 0
-                      ? this.state.data[0].order_type
-                      : ''}
+                    <span className="badge cyan">
+                      Order Type :{this.state.data.length > 0
+                        ? this.state.data[0].order_type
+                        : ''}
+                    </span>
                   </h5>
                 </td>
               </tr>
@@ -200,9 +209,10 @@ class OrderDetails extends React.PureComponent {
               <tr>
                 <th>Line Number</th>
                 <th>Ordered Item</th>
-                <th>Ship From</th>
-                <th>Quantity</th>
+                {/* <th>Ship From</th> */}
+                <th>Qty</th>
                 <th>Price</th>
+                <th>Total</th>
                 <th>Description</th>
                 {/* <th>Part Number</th> */}
               </tr>
@@ -216,9 +226,18 @@ class OrderDetails extends React.PureComponent {
                     </a>
                   </td>
                   <td>{this.state.data[i].ordered_item}</td>
-                  <td>{this.state.data[i].ship_from_org_id}</td>
+                  {/* <td>{this.state.data[i].ship_from_org_id}</td> */}
                   <td>{this.state.data[i].ordered_quantity}</td>
-                  <td>{this.state.data[i].unit_selling_price}</td>
+                  <td>
+                    ${this.state.data[i].unit_selling_price
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  </td>
+                  <td>
+                    ${this.state.data[i].line_total
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  </td>
                   <td>{this.state.data[i].description}</td>
                   {/* <td>{this.state.data[i].segment1}</td> */}
                 </tr>

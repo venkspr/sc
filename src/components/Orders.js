@@ -61,7 +61,7 @@ class Orders extends React.PureComponent {
 
     await this.delay(1000);
     axios
-      .get('http://vrangara2:8080/angular/qualcomm/om/orders?page=0')
+      .get('//vrangara2:8080/angular/qualcomm/om/orders?page=0')
       .then((response) => {
         // console.log(response);
         this.setState({ data: [...response.data.items] });
