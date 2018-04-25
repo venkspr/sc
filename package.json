@@ -54,8 +54,7 @@
     "save": "^2.3.2",
     "style-loader": "^0.20.3",
     "surge": "^0.20.1",
-    "toastr": "^2.1.4",
-    "webpack": "3.x"
+    "toastr": "^2.1.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
@@ -65,6 +64,9 @@
     "jest": "^22.4.3",
     "nodemon": "^1.17.2",
     "prettier-eslint-cli": "^4.7.1",
-    "react-test-renderer": "^16.2.0"
+    "react-test-renderer": "^16.2.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^3.11.0",
+    "webpack-merge": "^4.1.2"
   }
 }

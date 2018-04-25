@@ -1,5 +1,8 @@
 import axios from 'axios';
-import config from '../../server/config';
+//import config from '../../server/config';
+const config = {
+  apiHost: '//vrangara:8888'
+};
 
 export default {
   getCategories() {
