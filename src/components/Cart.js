@@ -3,7 +3,7 @@ import Input from './Input';
 import roundTo from 'round-to';
 
 const styleFifty = {
-  width: '80%'
+  width: '70%'
 };
 const styleTen = {
   width: '5%'
@@ -20,7 +20,7 @@ const styleTwentyTwo = {
 class Cart extends React.Component {
   cartTotal = () =>
     this.props.products.reduce(
-      (acc, curr) => acc + curr.Price * curr.quantity,
+      (acc, curr) => acc + curr.price * curr.quantity,
       0
     ) / 100;
 
@@ -51,7 +51,7 @@ class Cart extends React.Component {
                             className="nomargin"
                             style={{ color: 'darkblue' }}
                           >
-                            {product.CrossReference}
+                            {product.item_description}
                           </h6>
                           {/* <p>{product.ItemDescription}</p> */}
                         </div>
@@ -61,7 +61,7 @@ class Cart extends React.Component {
                       data-th="Price"
                       style={{ color: '#B12704', fontWeight: 'bold' }}
                     >
-                      ${product.Price / 100}{' '}
+                      ${product.price / 100}{' '}
                     </td>
                     <td data-th="Quantity">
                       <Input
@@ -78,7 +78,7 @@ class Cart extends React.Component {
                       className="text-center"
                       style={{ color: '#B12704', fontWeight: 'bold' }}
                     >
-                      {roundTo(product.Price / 100 * product.quantity, 3)}
+                      {roundTo(product.price / 100 * product.quantity, 3)}
                     </td>
                     <td className="actions" data-th="">
                       {/* <button className="btn btn-info btn-sm">
@@ -89,7 +89,7 @@ class Cart extends React.Component {
                         onClick={() =>
                           this.props.deleteItem(
                             product.id,
-                            product.CrossReference
+                            product.item_description
                           )
                         }
                       >

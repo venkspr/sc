@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 //import Spinner from 'react-spinkit';
 const RIGHT_ARROW = 39;
 const LEFT_ARROW = 37;
+const API_SERVER="https://apex.oracle.com/pls/apex/venks/om/orders?page="
 
 class Orders extends React.PureComponent {
   state = {
@@ -59,11 +60,11 @@ class Orders extends React.PureComponent {
   async componentDidMount() {
     document.addEventListener('keydown', this._handleKeyDown);
 
-    await this.delay(1000);
+    await this.delay(300);
     axios
-      .get('//vrangara2:8080/angular/qualcomm/om/orders?page=0')
+      .get(API_SERVER+ '0')
       .then((response) => {
-        // console.log(response);
+        //console.log(response);
         this.setState({ data: [...response.data.items] });
         this.setState({ loading: false });
       });
@@ -81,7 +82,7 @@ class Orders extends React.PureComponent {
 
     axios
       .get(
-        'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
+        API_SERVER  +
           this.props.page
       )
       .then((response) => {
@@ -95,7 +96,7 @@ class Orders extends React.PureComponent {
     await this.props.setPage(this.state.page);
     axios
       .get(
-        'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
+        API_SERVER +
           this.state.page
       )
       .then((response) => {
@@ -107,7 +108,7 @@ class Orders extends React.PureComponent {
   prevPage = async () => {
     if (this.state.page > 0) {
       await this.setState({ loading: true });
-      await this.delay(1000);
+      await this.delay(300);
 
       await this.setState((prevState) => {
         return { page: prevState.page - 1, loading: false };
@@ -117,7 +118,7 @@ class Orders extends React.PureComponent {
     }
 
     const res = await axios.get(
-      'http://vrangara2:8080/angular/qualcomm/om/orders?page=' + this.state.page
+      API_SERVER  + this.state.page
     );
     await this.setStateAsync({ loading: false });
     await this.setState({ data: [...res.data.items] });
@@ -136,7 +137,7 @@ class Orders extends React.PureComponent {
 
   nextPage = async () => {
     await this.setState({ loading: true });
-    await this.delay(1000);
+    await this.delay(300);
 
     //await this.delay(100);
 
@@ -148,7 +149,7 @@ class Orders extends React.PureComponent {
 
     axios
       .get(
-        'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
+        API_SERVER +
           this.state.page
       )
       .then((response) => {
@@ -215,6 +216,8 @@ class Orders extends React.PureComponent {
               <tr>
                 <th style={{ width: '10%' }}>Order Number</th>
                 <th style={{ width: '20%' }}>Party Name</th>
+                <th>Status</th>
+
                 <th>Description</th>
               </tr>
             </thead>
@@ -222,15 +225,18 @@ class Orders extends React.PureComponent {
               {this.state.data.map((item, i) => (
                 <tr key={i}>
                   <td style={{ width: '10%' }}>
-                    <Link to={'/order/' + this.state.data[i].order_number}>
-                      {this.state.data[i].order_number}
+                    <Link to={'/order/' + this.state.data[i].ordernumber}>
+                      {this.state.data[i].ordernumber}
                     </Link>
                   </td>
                   <td style={{ width: '20%' }}>
-                    {this.state.data[i].party_name}
+                    {this.state.data[i].customername}
+                  </td>
+                  <td style={{ width: '20%' }}>
+                    {this.state.data[i].status}
                   </td>
                   <td style={{ width: '70%' }}>
-                    {this.state.data[i].description}
+                    {this.state.data[i].orderdate}
                   </td>
                 </tr>
               ))}

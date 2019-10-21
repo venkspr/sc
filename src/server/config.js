@@ -6,5 +6,5 @@ module.exports = {
   isDev: env.NODE_ENV !== 'production',
   isBrowser: typeof window !== 'undefined',
 
-  apiHost: env.API_HOST || 'http://localhost:8888/',
+  apiHost: env.API_HOST || 'http://54.188.24.75:8888/',
 };

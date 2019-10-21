@@ -1,7 +1,7 @@
 import React from 'react';
 
 const style18 = {
-  width: '20rem'
+  width: '18rem'
 };
 
 class Product extends React.Component {
@@ -24,7 +24,7 @@ class Product extends React.Component {
                 color: 'darkblue'
               }}
             >
-              {this.props.product.id}
+              {this.props.product.item_description}
             </h5>
             <div>
               <div
@@ -67,7 +67,7 @@ class Product extends React.Component {
                     fontFamily: 'Qualcomm Next'
                   }}
                 >
-                  <i className="fa fa-check" />&nbsp; Qualcomm&apos;s&nbsp;
+                  <i className="fa fa-check" />&nbsp; Venky&apos;s&nbsp;
                   <span
                     style={{
                       color: '#E6A836'
@@ -84,10 +84,10 @@ class Product extends React.Component {
                 <span />
               )}
             </div>
-            <p className="card-text">{this.props.product.ItemDescription}</p>
+            <p className="card-text">{this.props.product.item_description}</p>
             <p className="card-text">
               <b>Price: $</b>
-              {(this.props.product.Price / 100).toLocaleString()}
+              {(this.props.product.price / 100).toLocaleString()}
             </p>
           </div>
           <button

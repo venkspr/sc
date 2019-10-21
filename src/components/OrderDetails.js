@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 //import Spinner from 'react-spinkit';
 const RIGHT_ARROW = 39;
 const LEFT_ARROW = 37;
+const API_SERVER='https://apex.oracle.com/pls/apex/venks/om/order/';
 
 class OrderDetails extends React.PureComponent {
   state = {
@@ -63,7 +64,7 @@ class OrderDetails extends React.PureComponent {
 
     axios
       .get(
-        'http://vrangara2:8080/angular/qualcomm/om/order/' +
+        API_SERVER +
           this.props.match.params.ordernumber
       )
       .then((response) => {
@@ -85,7 +86,7 @@ class OrderDetails extends React.PureComponent {
 
     axios
       .get(
-        'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
+        API_SERVER +
           this.props.page
       )
       .then((response) => {
@@ -99,7 +100,7 @@ class OrderDetails extends React.PureComponent {
     await this.props.setPage(this.state.page);
     axios
       .get(
-        'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
+        API_SERVER +
           this.state.page
       )
       .then((response) => {
@@ -126,7 +127,7 @@ class OrderDetails extends React.PureComponent {
 
     axios
       .get(
-        'http://vrangara2:8080/angular/qualcomm/om/orders?page=' +
+        API_SERVER +
           this.props.params.id
       )
       .then((response) => {
@@ -152,7 +153,7 @@ class OrderDetails extends React.PureComponent {
                   <h5>
                     <span className="badge cyan">
                       Party Name :{this.state.data.length > 0
-                        ? this.state.data[0].party_name
+                        ? this.state.data[0].customername
                         : ''}
                       {/* {this.state.data[0].order_number
                     ? this.state.data[0].order_number
@@ -164,7 +165,7 @@ class OrderDetails extends React.PureComponent {
                   <h5>
                     <span className="badge cyan">
                       Account Number :{this.state.data.length > 0
-                        ? this.state.data[0].account_number
+                        ? this.state.data[0].phone
                         : ''}
                     </span>
                   </h5>
@@ -175,7 +176,7 @@ class OrderDetails extends React.PureComponent {
                   <h5>
                     <span className="badge cyan">
                       Order Number Name :{this.state.data.length > 0
-                        ? this.state.data[0].order_number
+                        ? this.state.data[0].ordernumber
                         : ''}
                     </span>
                   </h5>
@@ -185,8 +186,8 @@ class OrderDetails extends React.PureComponent {
                     <span className="badge cyan">
                       Order date :{this.state.data.length > 0
                         ? moment(
-                          this.state.data[0].creation_date,
-                          'YYYY MM DD'
+                          this.state.data[0].orderdate,
+                          'MM/DD/YYYY'
                         ).format('MM-DD-YYYY')
                         : ''}
                     </span>
@@ -213,7 +214,7 @@ class OrderDetails extends React.PureComponent {
                 <th>Qty</th>
                 <th>Price</th>
                 <th>Total</th>
-                <th>Description</th>
+                <th>Product SKU</th>
                 {/* <th>Part Number</th> */}
               </tr>
             </thead>
@@ -222,26 +223,35 @@ class OrderDetails extends React.PureComponent {
                 <tr key={i}>
                   <td>
                     <a href={'/Employee/' + item._id}>
-                      {this.state.data[i].line_number}
+                      {this.state.data[i].orderlinenumber}
                     </a>
                   </td>
-                  <td>{this.state.data[i].ordered_item}</td>
+                  <td>{this.state.data[i].productline}</td>
                   {/* <td>{this.state.data[i].ship_from_org_id}</td> */}
-                  <td>{this.state.data[i].ordered_quantity}</td>
+                  <td>{this.state.data[i].quantityordered}</td>
                   <td>
-                    ${this.state.data[i].unit_selling_price
+                    ${this.state.data[i].priceeach
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   </td>
                   <td>
-                    ${this.state.data[i].line_total
+                    ${this.state.data[i].sales
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   </td>
-                  <td>{this.state.data[i].description}</td>
+                  <td>{this.state.data[i].productcode}</td>
                   {/* <td>{this.state.data[i].segment1}</td> */}
                 </tr>
               ))}
+              <tr><td colspan="6">
+              <button
+                    style={{ cursor: 'pointer' }}
+                    className="btn btn-primary"
+                    onClick={this.prevPage}
+                  >
+                    Previous
+                  </button>
+                </td></tr>
             </tbody>
           </table>
         </Loader>

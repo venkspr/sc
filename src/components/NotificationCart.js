@@ -9,7 +9,7 @@ const styleFifty = {
 class NotificationCart extends React.Component {
   cartTotal = () =>
     this.props.products.reduce(
-      (acc, curr) => acc + curr.Price * curr.quantity,
+      (acc, curr) => acc + curr.price * curr.quantity,
       0
     ) / 100;
   async componentDidMount() {
@@ -48,10 +48,10 @@ class NotificationCart extends React.Component {
                   >
                     <div className="row" key={product.id}>
                       <div className="col-sm-10">
-                        <h6 className="nomargin">{product.CrossReference}</h6>
+                        <h6 className="nomargin">{product.item_description}</h6>
                         <div style={{ color: '#B12704', fontWeight: 'bold' }}>
-                          ${product.Price / 100} X {product.quantity} =$
-                          {roundTo(product.Price / 100 * product.quantity, 3)}
+                          ${product.price / 100} X {product.quantity} =$
+                          {roundTo(product.price / 100 * product.quantity, 3)}
                         </div>
                       </div>
                     </div>

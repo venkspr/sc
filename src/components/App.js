@@ -24,7 +24,7 @@ class App extends React.PureComponent {
     showCart: false,
     qtyPassed: '',
     showFeatured: true,
-    activeCategoryId: '',
+    activeCategoryId: '1',
     updateRating: true,
     productCards: [],
     page: 0
@@ -55,16 +55,23 @@ class App extends React.PureComponent {
       this.setState(root);
       this.setState({ showFeatured: true, activeCategoryId: '' });
     }
+    
     const categories = await apiClient.getCategories();
+    // console.log("getting categories");
+    // console.log(categories);
     this.setState({ categories });
-    const products = await apiClient.searchProducts('factory');
-    this.setState({ products: [...products.searchProducts] });
+    //debugger;
+    const products = await apiClient.searchProducts('Ball') || [];
+    // debugger
+    //console.log('Products');
+    //console.log(products);
+    this.setState({ products: [...products] });
   }
 
   resetShowFeatured = async () => {
     this.setState({ showFeatured: true, activeCategoryId: '' });
-    const products = await apiClient.searchProducts('factory');
-    this.setState({ products: [...products.searchProducts] });
+    const products = await apiClient.searchProducts('Rope'); 
+    this.setState({ products: [...products] });
   };
 
   componentDidUpdate() {
@@ -86,7 +93,7 @@ class App extends React.PureComponent {
     if (evt.target.value.length > 1) {
       this.setState({ showFeatured: false });
       const products = await apiClient.searchProducts(evt.target.value);
-      this.setState({ products: [...products.searchProducts] });
+      this.setState({ products: [...products] });
     }
   };
   deleteItem = (id, CrossReference) => {
@@ -136,7 +143,7 @@ class App extends React.PureComponent {
         toastr.warning('Item allready in cart');
         return;
       }
-      toastr.success(product.CrossReference + ' added to shopping cart');
+      toastr.success(product.item_description + ' added to shopping cart');
       return {
         cart: [...prevState.cart, product],
         showCart: true

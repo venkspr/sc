@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 new webpack.DefinePlugin({
   'process.env': {
-    NODE_ENV: JSON.stringify('production')
+    NODE_ENV: JSON.stringify('development')
   }
 });
 const isDev = process.env.NODE_ENV !== 'production';

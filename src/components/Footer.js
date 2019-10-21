@@ -9,7 +9,7 @@ class Footer extends React.Component {
             <div className="row text-center text-md-left mt-3 pb-3">
               <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                 <h6 className="text-uppercase mb-4 font-weight-bold">
-                  Qualcomm Inc
+                  Venky Inc
                 </h6>
                 <p>
                   Here you can use rows and columns here to organize your footer
@@ -23,16 +23,16 @@ class Footer extends React.Component {
                   Products
                 </h6>
                 <p>
+                  <a href="#!">Enterprise Solution</a>
+                </p>
+                <p>
+                  <a href="#!">Consumer  Solution</a>
+                </p>
+                <p>
                   <a href="#!">Mobile Solution</a>
                 </p>
                 <p>
-                  <a href="#!">Data Center Solution</a>
-                </p>
-                <p>
-                  <a href="#!">Wifi Solution</a>
-                </p>
-                <p>
-                  <a href="#!">Bluetooth Solution</a>
+                  <a href="#!">Cloud Solution</a>
                 </p>
               </div>
               <hr className="w-100 clearfix d-md-none" />
@@ -41,10 +41,10 @@ class Footer extends React.Component {
                   Useful links
                 </h6>
                 <p>
-                  <a href="#!">Qualcomm Account</a>
+                  <a href="#!">Venky Account</a>
                 </p>
                 <p>
-                  <a href="#!">Become a distributor</a>
+                  <a href="#!">Become a solution provider</a>
                 </p>
                 <p>
                   <a href="#!">Returns</a>
@@ -62,7 +62,7 @@ class Footer extends React.Component {
                   <i className="fa fa-home mr-3" /> San Diego, California, USA
                 </p>
                 <p>
-                  <i className="fa fa-envelope mr-3" /> info@qualcomm.com
+                  <i className="fa fa-envelope mr-3" /> info@venky.com
                 </p>
                 <p>
                   <i className="fa fa-phone mr-3" /> + 1 (858) 587-1121
@@ -79,8 +79,8 @@ class Footer extends React.Component {
               <div className="col-md-8 col-lg-8">
                 <p className="text-center text-md-left grey-text">
                   © 2018 Copyright:{' '}
-                  <a href="https://qualcomm.com/">
-                    <strong> qualcomm.com</strong>
+                  <a href="https://venky.com/">
+                    <strong> venky.com</strong>
                   </a>
                 </p>
               </div>

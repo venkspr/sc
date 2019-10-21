@@ -1,49 +1,20 @@
-import axios from 'axios';
+import axios from "axios";
 //import config from '../../server/config';
 const config = {
-  apiHost: '//localhost:8888'
+  apiHost: "https://apex.oracle.com/pls/apex/venks/om"
 };
 
 export default {
   getCategories() {
-    return axios
-      .post(
-        `${config.apiHost}?query=
-      {
-        categories {
-          id: _id
-          ProductLine
-          ProductSeries
-          products{
-     CrossReference
-   }
-        }
-      }
-    `
-      )
-      .then((resp) => resp.data.data.categories);
+    return axios.get(`${config.apiHost}/categories`)
+    .then(resp => resp.data.items);
   },
   getProducts(categoryId) {
     return axios
-      .post(
-        `${config.apiHost}?query=
-      query GetProductsForCategory ($categoryId: String!) {
-        category(_id: $categoryId) {
-          products {
-            id: _id
-            CrossReference
-            ItemDescription
-            Price
-            category {
-              ProductLine
-              ProductSeries
-            }
-          }
-        }
-      }
-    &variables=${JSON.stringify({ categoryId })}`
+      .get(
+        `${config.apiHost}/products?category=${categoryId}`
       )
-      .then((resp) => resp.data.data.category.products);
+      .then(resp => resp.data.items);
   },
 
   searchProductsCategories() {
@@ -64,22 +35,14 @@ export default {
         }
  `
       )
-      .then((resp) => resp.data.data);
+      .then(resp => resp.data.data);
   },
 
   searchProducts(text) {
     return axios
-      .post(
-        `${config.apiHost}?query=
-        {
-    searchProducts(text:"${text}"){
-      CrossReference
-      ItemDescription
-      Price
-      id:_id
-    }
-  } `
+      .get(
+        `${config.apiHost}/productsearch?searchterm=${text}`
       )
-      .then((resp) => resp.data.data);
+      .then(resp => resp.data.items);
   }
 };
