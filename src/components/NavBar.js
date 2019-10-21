@@ -141,7 +141,7 @@ class NavBar extends React.Component {
                   marginLeft: '20px'
                 }}
               />
-              <span
+              {/* <span
                 className="badgev "
                 style={{
                   backgroundColor: 'blue',
@@ -150,7 +150,7 @@ class NavBar extends React.Component {
                 }}
               >
                 3{' '}
-              </span>
+              </span> */}
             </li>
             <li>
               &nbsp;&nbsp;&nbsp;<i

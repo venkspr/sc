@@ -42,6 +42,8 @@ class App extends React.PureComponent {
   async componentDidMount() {
     //const allProducts = await apiClient.searchProductsCategories();
     //console.info(allProducts.products);
+    Sentry.init({ dsn: 'https://fdf3bc75dc434511927ea2007eccd2c9@sentry.io/1786843' });
+
     toastr.options = {
       showDuration: '1500',
       hideDuration: '500',
