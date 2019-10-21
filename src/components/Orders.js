@@ -42,7 +42,7 @@ class Orders extends React.PureComponent {
       <span>
         {/* <i className="fa fa-5x fa-spinner " /> */}
         <img
-          src={'img/loading' + (Math.floor(Math.random() * 12) + 1) + '.gif'}
+          src={'https://venkspr.github.io/sc/img/loading' + (Math.floor(Math.random() * 12) + 1) + '.gif'}
           style={{ height: '200px', width: '200px' }}
         />
       </span>
