@@ -139,7 +139,7 @@ class NavBar extends React.Component {
                   color: '#FFFFFF',
                   fontSize: '30px',
                   marginLeft: '20px'
-                }}
+                }} 
               />
               {/* <span
                 className="badgev "
