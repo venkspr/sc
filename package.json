@@ -20,7 +20,7 @@
     "prod-logs": "pm2 logs qcProd"
   },
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.5",
     "babel-plugin-css-modules-transform": "^1.6.2",
